@@ -12,21 +12,22 @@ from clmt.dataframes.process import (
 app = App()
 
 
-@app.command
-def extract_data(path: Path):
-    # TODO convert to html if is .txt..
-    df = extract_data_from_html(path).pipe(get_emissions_df)
-    summary = calculate_net_emissions(df)
-    print(summary)  # TODO make a pretty print
+# @app.command
+# def extract_data(path: Path):
+#     # TODO convert to html if is .txt..
+#     df = extract_data_from_html(path).pipe(get_emissions_df)
+#     summary = calculate_net_emissions(df)
+#     print(summary)  # TODO make a pretty print
 
 
 DEFAULT_CSV_NAME = "pathfinder.csv"
 
 
-@app.command
+@app.default
 def extract_and_save_data(
     path_to_html: Path, save_directory: Path, save_name: str = DEFAULT_CSV_NAME
 ):
+    # TODO convert to html if is .txt..
     df = extract_data_from_html(path_to_html).pipe(get_emissions_df)
     df = save_dataframe(save_directory, save_name, df)
     summary = calculate_net_emissions(df)  # TODO make a pretty print

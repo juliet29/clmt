@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
-cli = "clmt.api.cli:main"
+clmt = "clmt.api.cli:main"
 
 [build-system]
 requires = ["hatchling"]

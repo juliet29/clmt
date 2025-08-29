@@ -1,5 +1,5 @@
 from clmt.dataframes.interfaces import CarbonSummary
-from clmt.examples import Pier6Data
+from clmt.examples import SampleData
 from clmt.extract.read_html import extract_data
 from clmt.dataframes.process import (
     calculate_net_emissions,
@@ -8,14 +8,15 @@ from clmt.dataframes.process import (
 
 
 def test_getting_a_valid_df():
-    df = extract_data(path=Pier6Data.SAMPLE_HTML)
+    df = extract_data(path=SampleData.SAMPLE_HTML)
     assert not df.is_empty()
 
 
 def test_extracted_data_is_correct():
-    df = extract_data(path=Pier6Data.SAMPLE_HTML).pipe(get_emissions_df)
+    df = extract_data(path=SampleData.SAMPLE_HTML).pipe(get_emissions_df)
     expected_summary = CarbonSummary(
-        emissions=Pier6Data.TOTAL_EMBODIED_EMISSIONS, biogenic=Pier6Data.TOTAL_BIOGENIC
+        emissions=SampleData.TOTAL_EMBODIED_EMISSIONS,
+        biogenic=SampleData.TOTAL_BIOGENIC,
     )
     summary = calculate_net_emissions(df)
     assert summary == expected_summary
